@@ -9,6 +9,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-it
     RecipeItemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CommonModule
   ],
   providers: [
     provideClientHydration()
