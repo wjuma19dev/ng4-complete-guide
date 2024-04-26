@@ -11,6 +11,7 @@ import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { CommonModule } from '@angular/common';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { RecipeService } from './recipes/recipe.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
     CommonModule
   ],
   providers: [
+    RecipeService,
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
