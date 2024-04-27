@@ -12,6 +12,7 @@ import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-it
 import { CommonModule } from '@angular/common';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { RecipeService } from './recipes/recipe.service';
+import { ShoppingListService } from './shopping-list/shopping-list.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { RecipeService } from './recipes/recipe.service';
   ],
   providers: [
     RecipeService,
+    ShoppingListService,
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
