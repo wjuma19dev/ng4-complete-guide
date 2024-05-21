@@ -26,7 +26,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         (params: Params) => {
           this.recipe = this.recipeService.getRecipe(+params['id']);
         }
-      )
+      );
   }
 
   onAddToShoppingList() {
@@ -35,6 +35,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   onEditComponent() {
     this.router.navigate(['edit'], {relativeTo: this.route})
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.recipeDelete(this.recipe)
+    this.router.navigate(['../'], { relativeTo: this.route })
   }
 
   ngOnDestroy(): void {
