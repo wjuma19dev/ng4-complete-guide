@@ -54,10 +54,14 @@
 <div class="row">
     <div class="col-xs-12">
         <h3>Ingredients</h3>
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
-                {{ ingredient.name }} - {{ ingredient.amount }}
-            </li>
-        </ul>
+        @if(recipe.ingredients.length >= 1) {
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
+                    {{ ingredient.name }} - {{ ingredient.amount }}
+                </li>
+            </ul>
+        } @else {
+            <p>No existen ingredientes para esta receta, <a style="cursor: pointer;" (click)="onEditComponent()">agrega un ingrediente</a></p>
+        }
     </div>
 </div>
