@@ -17,11 +17,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { DataStorageService } from './shared/data-storage.service';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 import { LoaderComponent } from './loader/loader.component';
+import { AuthInterceptor } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,14 @@ import { LoaderComponent } from './loader/loader.component';
     DataStorageService,
     ShoppingListService,
     AuthService,
-    provideHttpClient(),
+    // [{
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // }],
+    provideHttpClient(withInterceptors([
+      AuthInterceptor
+    ])),
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
