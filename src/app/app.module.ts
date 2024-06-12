@@ -17,12 +17,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { DataStorageService } from './shared/data-storage.service';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 import { LoaderComponent } from './loader/loader.component';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
+import { AlertComponent } from './shared/alert/alert.component';
+
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
     RecipeStartComponent,
     RecipeEditComponent,
     LoaderComponent,
-    AuthComponent
+    AuthComponent,
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,8 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
     provideHttpClient(withInterceptors([
       AuthInterceptor
     ])),
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient( withFetch() )
   ],
   bootstrap: [AppComponent]
 })

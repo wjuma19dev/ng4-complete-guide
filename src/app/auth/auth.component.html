@@ -1,9 +1,18 @@
+<ng-template appPlaceholder></ng-template>
 <div class="row">
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
-        <div class="alert alert-danger" role="alert" *ngIf="error && !isLoading">
+        <!-- <div class="alert alert-danger" role="alert" *ngIf="error && !isLoading">
             {{ error }}
-          </div>
+        </div> -->
+
+        <!-- <app-alert 
+            [message]="error" 
+            *ngIf="error && !isLoading"
+            (close)="onHandlerError()"
+        ></app-alert> -->
+
+        <!-- ALERT COMPONENT CREATED DYNAMIC, INSERT HERE! -->
 
         <div class="text-center" *ngIf="isLoading">
             <app-loader></app-loader>

@@ -1,15 +1,21 @@
-import { Component } from "@angular/core";
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthService, ResponsePayload } from "./auth.service";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Router } from "@angular/router";
+import { PlaceholderDirective } from "../shared/placeholder/placeholder.directive";
+import { AlertComponent } from "../shared/alert/alert.component";
 
 
 @Component({
     selector: 'app-auth',
     templateUrl: './auth.component.html',
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit, OnDestroy {
+
+    @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
+
+    closeSubs: Subscription;
 
     isLoginMode: boolean = true;
     isLoading: boolean = false;
@@ -17,8 +23,27 @@ export class AuthComponent {
 
     constructor(
         private authServices: AuthService,
-        private router: Router
-    ) { }
+        private router: Router,
+        public componentfactoryResolver: ComponentFactoryResolver
+    ) {}
+
+    ngOnInit(): void {}
+
+    private onShowErrorAlert(message: string) {
+        
+        const alertCmpFactory = this.componentfactoryResolver.resolveComponentFactory(AlertComponent);
+        const hostViewContainerRef = this.alertHost.viewContainerRef;
+
+        hostViewContainerRef.clear();
+        const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+
+        componentRef.instance.message = message;
+        this.closeSubs = componentRef.instance.close.subscribe(() => {
+            this.closeSubs.unsubscribe();
+            hostViewContainerRef.clear();
+        });   
+         
+    }
 
     onSwitchMode() {
         this.isLoginMode = !this.isLoginMode;
@@ -49,12 +74,23 @@ export class AuthComponent {
             },
             error: (errorMessage) => {
                 this.isLoading = false;
+                this.onShowErrorAlert(errorMessage);
                 this.error = errorMessage;
             }
         });
 
         authForm.resetForm();
 
+    }
+
+    onHandlerError() {
+        this.error = null;
+    }
+
+    ngOnDestroy(): void {
+        if(this.closeSubs) {
+            this.closeSubs.unsubscribe();
+        }
     }
 
 }
