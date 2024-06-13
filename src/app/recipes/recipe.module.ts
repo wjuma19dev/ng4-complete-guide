@@ -11,6 +11,7 @@ import { RecipeItemComponent } from "./recipe-list/recipe-item/recipe-item.compo
 import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
 import { RecipeRoutingModule } from "./recipe-routing.module";
+import { SharedModule } from "../shared/shared.module";
 
 
 
@@ -27,7 +28,8 @@ import { RecipeRoutingModule } from "./recipe-routing.module";
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    RecipeRoutingModule
+    RecipeRoutingModule,
+    SharedModule
   ],
   exports: [
     RecipesComponent,

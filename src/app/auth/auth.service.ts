@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject, catchError, tap, throwError, BehaviorSubject } from "rxjs";
 import { User } from "./auth.model";
 import { Router } from "@angular/router";
+import { environment } from "../../environments/environment";
 
 interface UserData {
     email: string;
@@ -15,7 +16,8 @@ const endpoint = {
     signup: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]',
     login: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]'
 }
-const apiKey: string = 'AIzaSyArvPhgVhm7VkueSybrT0Sg2BoUAXkzct8';
+const apiKey: string = environment.firebaseApiKey;
+
 const localStorageAvaliable = typeof localStorage !== "undefined";
 
 export interface ResponsePayload {
@@ -27,7 +29,7 @@ export interface ResponsePayload {
     kind: string;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
@@ -99,7 +101,7 @@ export class AuthService {
         if(loadedUser.token) {
             this.user.next(loadedUser);
             let expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-            console.log(expirationDuration)
+            // console.log(expirationDuration)
             this.autoLogout(expirationDuration);
         }
     }

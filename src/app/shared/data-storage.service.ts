@@ -3,7 +3,8 @@ import { Injectable } from "@angular/core";
 import { RecipeService } from "../recipes/recipe.service";
 import { Recipe } from "../recipes/recipe-list/recipe.model";
 import { map, tap } from "rxjs";
-@Injectable()
+
+@Injectable({ providedIn: 'root' })
 export class DataStorageService {
 
     baseURL: string = 'https://ng-complete-guide-37c43-default-rtdb.firebaseio.com/recipes.json';
